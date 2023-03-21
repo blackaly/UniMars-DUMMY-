@@ -49,3 +49,12 @@ It may be useful to add a "tags" table that stores information about tags that u
 
 Overall, the schema seems to cover the basic functionality of a social media platform, but there are some additional fields and tables that could be added to make it more robust and flexible.
 
+
+___
+
+## ERD Relationships: 
+
+- The "Users" table has a one-to-many relationship with the "Posts" table, as a user can create many posts, but a post can only be created by one user.
+- The "Users" table has a one-to-many relationship with the "Comments" table, as a user can make many comments, but a comment can only be made by one user.
+- The "Posts" table has a one-to-many relationship with the "Comments" table, as a post can have many comments, but a comment can only be associated with one post.
+- The "Users" table has a many-to-many relationship with the "Followers" and "Following" tables, as a user can have many followers and follow many other users.
