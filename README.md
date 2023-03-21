@@ -1,27 +1,25 @@
 # UniMars
 
-+--------------+        +--------------+        +--------------+        +----------------+
 |     Users    |        |    Posts     |        |   Comments   |        |     Likes      |
-+--------------+        +--------------+        +--------------+        +----------------+
+ -------------           --------------          --------------          ----------------
 |  user_id     |        |   post_id    |        |  comment_id  |        |    like_id     |
 |  first_name  |        |  user_id     |        |  user_id     |        |    user_id     |
 |  last_name   |        |  content     |        |  post_id     |        |    post_id     |
 |  email       |        |  image_url   |        |  content     |        |  comment_id    |
 |  password    |        |  timestamp   |        |  timestamp   |        |  created_at    |
-|  created_at  |        |  likes       |        |  likes_count |        +----------------+
+|  created_at  |        |  likes       |        |  likes_count |        
 |  updated_at  |        |  created_at  |        |  created_at  |
 |  bio         |        |  updated_at  |        |  updated_at  |
-|  location    |        |  user_tags   |        +--------------+
-|  website     |        +--------------+
-+--------------+
+|  location    |        |  user_tags   |        
+|  website     |        
 
-+--------------+        +--------------+
+
 |  Followers   |        |  Following   |
-+--------------+        +--------------+
+ --------------          --------------
 |  follower_id |        |  user_id     |
 |  followee_id |        |  followee_id |
 |  created_at  |        |  created_at  |
-+--------------+        +--------------+
+        
 
 
 ## This is a database schema for a social media platform. Here's an explanation of each table:
