@@ -41,11 +41,11 @@ The Comments table should include a field for the number of likes the comment ha
 
 The Likes table should include a field for the type of item being liked (post or comment), in order to differentiate between the two and make it easier to display the appropriate number of likes for each item.
 
-It may be useful to add a "reactions" table that stores information about the different types of reactions (such as "like", "love", "haha", etc.) that users can have to posts and comments. This would allow users to react to posts and comments in a more nuanced way than simply liking them.
+It may be useful to add a **"reactions"** table that stores information about the different types of reactions (such as "like", "love", "haha", etc.) that users can have to posts and comments. This would allow users to react to posts and comments in a more nuanced way than simply liking them.
 
 The Followers and Following tables could be combined into a single "relationships" table that stores information about all types of relationships between users (followers, following, friends, etc.). This would make it easier to query the database for information about a user's relationships.
 
-It may be useful to add a "tags" table that stores information about tags that users can add to their posts in order to make them more discoverable. This would allow users to search for posts by tag, and would also allow the social media platform to display trending topics based on the most popular tags.
+It may be useful to add a **"tags"** table that stores information about tags that users can add to their posts in order to make them more discoverable. This would allow users to search for posts by tag, and would also allow the social media platform to display trending topics based on the most popular tags.
 
 Overall, the schema seems to cover the basic functionality of a social media platform, but there are some additional fields and tables that could be added to make it more robust and flexible.
 
