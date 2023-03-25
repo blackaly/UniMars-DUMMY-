@@ -66,7 +66,12 @@ namespace UniMars.Services.Implementation
             {
                 UserName = model.Username,
                 Email = model.Email,
-                Name = model.FirtName + " " + model.LastName
+                Name = model.FirtName + " " + model.LastName,
+                Bio = "",
+                Gender = Gender.Male,
+                ProfilePicture = "",
+                Status = true
+                
             };
 
             var res = await _userManager.CreateAsync(usr, model.Password);
@@ -78,7 +83,7 @@ namespace UniMars.Services.Implementation
                 return new AuthModel() { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(usr, nameof(Roles.User));
+            await _userManager.AddToRoleAsync(usr, "User");
 
             var token = await CreateJwtToken(usr);
 

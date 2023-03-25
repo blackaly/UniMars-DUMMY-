@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniMars.Models;
 
@@ -11,9 +12,11 @@ using UniMars.Models;
 namespace UniMars.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230324151819_update-database5")]
+    partial class updatedatabase5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,6 +192,44 @@ namespace UniMars.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("UniMars.Models.Domains.DetailedUser", b =>
+                {
+                    b.Property<int>("DetailedUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DetailedUserId"));
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProfilePicture")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DetailedUserId");
+
+                    b.ToTable("DetailedUser");
+                });
+
             modelBuilder.Entity("UniMars.Models.Domains.Post", b =>
                 {
                     b.Property<int>("PostId")
@@ -206,6 +247,9 @@ namespace UniMars.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("DetailedUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -231,6 +275,8 @@ namespace UniMars.Migrations
 
                     b.HasKey("PostId");
 
+                    b.HasIndex("DetailedUserId");
+
                     b.HasIndex("UserId1");
 
                     b.ToTable("Posts");
@@ -244,17 +290,12 @@ namespace UniMars.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("DetailedUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -262,9 +303,6 @@ namespace UniMars.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -294,19 +332,8 @@ namespace UniMars.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProfilePicture")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -316,6 +343,9 @@ namespace UniMars.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DetailedUserId")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -392,21 +422,39 @@ namespace UniMars.Migrations
 
             modelBuilder.Entity("UniMars.Models.Domains.Post", b =>
                 {
-                    b.HasOne("UniMars.Models.Domains.User", "User")
+                    b.HasOne("UniMars.Models.Domains.DetailedUser", null)
                         .WithMany("Post")
+                        .HasForeignKey("DetailedUserId");
+
+                    b.HasOne("UniMars.Models.Domains.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("UniMars.Models.Domains.User", b =>
+                {
+                    b.HasOne("UniMars.Models.Domains.DetailedUser", "DetailedUser")
+                        .WithOne("User")
+                        .HasForeignKey("UniMars.Models.Domains.User", "DetailedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DetailedUser");
+                });
+
+            modelBuilder.Entity("UniMars.Models.Domains.DetailedUser", b =>
+                {
+                    b.Navigation("Post");
+
+                    b.Navigation("User")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("UniMars.Models.Domains.Post", b =>
                 {
                     b.Navigation("Comment");
-                });
-
-            modelBuilder.Entity("UniMars.Models.Domains.User", b =>
-                {
-                    b.Navigation("Post");
                 });
 #pragma warning restore 612, 618
         }

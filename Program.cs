@@ -7,6 +7,8 @@ using System.Text;
 using UniMars.JWT;
 using UniMars.Models;
 using UniMars.Models.Domains;
+using UniMars.Services.Implementation;
+using UniMars.Services.Interfaces;
 
 namespace UniMars
 {
@@ -56,6 +58,8 @@ namespace UniMars
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddTransient<IAuthService, AuthService>();
 
             var app = builder.Build();
 
